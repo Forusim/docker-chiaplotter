@@ -16,11 +16,11 @@ RUN git clone https://github.com/Chia-Network/chia-blockchain.git --branch ${BRA
 RUN git clone https://github.com/swar/Swar-Chia-Plot-Manager.git --branch main \
  && pip3 install -r /Swar-Chia-Plot-Manager/requirements.txt
 
-COPY chiapos-1.0.2.dev1-cp38-cp38-manylinux2010_x86_64.whl /tmp/ \
-  && cd /chia-blockchain \
-  && venv/bin/pip install /tmp/chiapos-1.0.2.dev1-cp38-cp38-manylinux2010_x86_64.whl \
-  && sed -i 's/chiapos==1.0.2/chiapos/' setup.py \
-  && venv/bin/python setup.py install
+COPY chiapos-1.0.2.dev1-cp38-cp38-manylinux2010_x86_64.whl /tmp/
+RUN cd /chia-blockchain \
+ && venv/bin/pip install /tmp/chiapos-1.0.2.dev1-cp38-cp38-manylinux2010_x86_64.whl \
+ && sed -i 's/chiapos==1.0.2/chiapos/' setup.py \
+ && venv/bin/python setup.py install
 
 WORKDIR /Swar-Chia-Plot-Manager 
 
