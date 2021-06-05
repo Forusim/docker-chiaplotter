@@ -1,4 +1,4 @@
-FROM ubuntu:focal
+FROM ubuntu:21.04
 
 ARG BRANCH="latest"                                                      
 ARG DEBIAN_FRONTEND="noninteractive"
