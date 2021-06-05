@@ -1,4 +1,4 @@
-FROM ubuntu:21.04
+FROM ubuntu:latest
 
 ARG BRANCH="latest"                                                      
 ARG DEBIAN_FRONTEND="noninteractive"
