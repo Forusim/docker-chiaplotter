@@ -11,6 +11,7 @@ Required configuration:
 
 Optional configuration:
 * Setting the autostart of plotting manager via environment (e.g. `-e AUTOSTART=yes`)
+* Setting the time zone of plotting manager via environment (e.g. `-e TZ=Europe/Berlin`)
 
 On first start:
 * Open `/config/config.yaml` for editing
