@@ -1,17 +1,17 @@
 #!/bin/bash
 
 TEMPDIR=/temp
-FARMDIR=/farm
+PLOTSDIR=/plots
 CONFDIR=/config
-BINDIR=/madmax-plotter
+BINDIR=/Swar-Chia-Plot-Manager
 AUTOSTART="no"
 
 if [[ ! -d $TEMPDIR ]]; then
   echo "Temp directory does not exist. Please bind mount a volume with the docker '-v' option to '$TEMPDIR'."
   exit 1
 fi
-if [[ ! -d $FARMDIR ]]; then
-  echo "Plots directory does not exist. Please bind mount a volume with the docker '-v' option to '$FARMDIR'."
+if [[ ! -d $PLOTSDIR ]]; then
+  echo "Plots directory does not exist. Please bind mount a volume with the docker '-v' option to '$PLOTSDIR'."
   exit 1
 fi
 if [[ ! -d $CONFDIR ]]; then
@@ -20,22 +20,32 @@ if [[ ! -d $CONFDIR ]]; then
 fi
 
 # Always copy default config file
-cp $BINDIR/plotter.cfg.default $CONFDIR/plotter.cfg.default
+cp $BINDIR/config.yaml.default $CONFDIR/config.yaml.default
 
-if [[ ! -f "$CONFDIR/plotter.cfg" ]]; then
-  cp $BINDIR/plotter.cfg.default $CONFDIR/plotter.cfg
+if [[ ! -f "$CONFDIR/config.yaml" ]]; then
+  cp $BINDIR/config.yaml.default $CONFDIR/config.yaml
 fi
-ln -s $CONFDIR/plotter.cfg $BINDIR/plotter.cfg
+ln -s $CONFDIR/config.yaml $BINDIR/config.yaml
+
+if [[ ! -f "$CONFDIR/manager.log" ]]; then
+  touch $CONFDIR/manager.log
+fi
+ln -s $CONFDIR/manager.log $BINDIR/manager.log
+
+cd /chia-blockchain
+. ./activate
 
 if [[ ${AUTOSTART} == 'yes' ]]; then
-  if cmp $CONFDIR/plotter.cfg.default $CONFDIR/plotter.cfg; then
-    echo "Please edit $CONFDIR/plotter.cfg first".
-    exit 1
+  if cmp $CONFDIR/config.yaml.default $CONFDIR/config.yaml; then
+    echo "Please edit $CONFDIR/config.yaml first".
+    echo "Call from docker shell: python manager.py start"
   else
-    ./start.sh
+    python manager.py start
   fi
 else
-  echo "Call from docker shell: ./start.sh"
+  echo "Call from docker shell: python manager.py start"
 fi
+
+echo "Call from docker shell: python manager.py view"
 
 while true; do sleep 30; done
