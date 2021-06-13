@@ -1,22 +1,24 @@
-FROM ubuntu:latest
+# Compiler image
+# -------------------------------------------------------------------------------------------------
+FROM alpine AS compiler
 
-ARG BRANCH="latest"                                                      
-ARG DEBIAN_FRONTEND="noninteractive"
+RUN apk --no-cache add \
+    git gcc g++ build-base cmake libsodium-dev libsodium-static 
 
-COPY dpkg_excludes /etc/dpkg/dpkg.cfg.d/excludes 
+RUN git clone https://github.com/madMAx43v3r/chia-plotter.git --branch master --recurse-submodules \
+ && cd chia-plotter
+ && chmod +x make_devel.sh && ./make_devel.sh
 
-RUN apt-get update \
- && apt-get --no-install-recommends -y install tzdata ca-certificates git lsb-release sudo nano python3 python3-pip python-is-python3
+# Runtime image
+# -------------------------------------------------------------------------------------------------
+FROM alpine AS runtime
 
-RUN git clone https://github.com/Chia-Network/chia-blockchain.git --branch ${BRANCH} --recurse-submodules \
- && cd chia-blockchain \
- && chmod +x install.sh && ./install.sh \
- && . ./activate && chia init
+RUN apk --no-cache add \
+    tzdata nano 
 
-RUN git clone https://github.com/swar/Swar-Chia-Plot-Manager.git --branch main \
- && pip3 install -r /Swar-Chia-Plot-Manager/requirements.txt
+COPY --from=compiler /chia-plotter/build/chia_plot /madmax-plotter/
 
-WORKDIR /Swar-Chia-Plot-Manager 
+WORKDIR /madmax-plotter
 
 VOLUME /config
 
