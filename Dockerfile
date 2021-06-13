@@ -7,7 +7,7 @@ RUN apk --no-cache add \
 
 RUN git clone https://github.com/madMAx43v3r/chia-plotter.git --branch master --recurse-submodules \
  && cd chia-plotter \
- && chmod +x make_devel.sh && ./make_devel.sh
+ && /bin/sh ./make_devel.sh
 
 # Runtime image
 # -------------------------------------------------------------------------------------------------
