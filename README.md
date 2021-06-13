@@ -1,7 +1,7 @@
 ![](https://www.chia.net/img/chia_logo.svg)
 
 # Chia plotter docker image
-A simple and scalable docker image for creating Chia plots via https://github.com/swar/Swar-Chia-Plot-Manager.
+Work in Progress!
 
 ## Configuration
 Required configuration:
