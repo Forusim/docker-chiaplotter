@@ -18,4 +18,5 @@ if [[ -v p ]]; then CMD+="-p ${p} "; fi
 
 if [[ -v f ]]; then CMD+="-f ${f} "; fi
 
-./chia_plot $CMD >> /proc/1/fd/1
+./chia_plot $CMD >> /proc/1/fd/1 &
+echo "Check docker log for progress info."
