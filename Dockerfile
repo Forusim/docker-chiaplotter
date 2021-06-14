@@ -14,7 +14,7 @@ RUN git clone https://github.com/madMAx43v3r/chia-plotter.git --branch master --
 FROM alpine AS runtime
 
 RUN apk --no-cache add \
-    tzdata nano bash libsodium-dev
+    tzdata nano bash libstdc++ libsodium-dev
 
 COPY --from=compiler /chia-plotter/build/chia_plot /madmax-plotter/
 
