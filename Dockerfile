@@ -22,8 +22,7 @@ WORKDIR /madmax-plotter
 
 VOLUME /config
 
-COPY plotter.cfg.default /madmax-plotter/
-COPY start.sh /madmax-plotter/
+COPY plotter.cfg.default start.sh stop.sh /madmax-plotter/
 
 COPY entrypoint.sh /entrypoint.sh
 ENTRYPOINT ["bash", "/entrypoint.sh"]
