@@ -30,12 +30,12 @@ ln -s $CONFDIR/plotter.cfg $BINDIR/plotter.cfg
 if [[ ${AUTOSTART} == 'yes' ]]; then
   if cmp $CONFDIR/plotter.cfg.default $CONFDIR/plotter.cfg; then
     echo "Please edit $CONFDIR/plotter.cfg first".
-    echo "Call from docker shell: ./start.sh"
+    echo "Call from docker shell: bash start.sh"
   else
-    ./start.sh
+    bash start.sh
   fi
 else
-  echo "Call from docker shell: ./start.sh"
+  echo "Call from docker shell: bash start.sh"
 fi
 
 while true; do sleep 30; done
