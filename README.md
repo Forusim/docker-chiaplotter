@@ -1,7 +1,7 @@
 ![](https://www.chia.net/img/chia_logo.svg)
 
 # Chia plotter docker image
-Work in Progress!
+A simple and scalable docker image for creating Chia plots via https://github.com/madMAx43v3r/chia-plotter
 
 ## Configuration
 Required configuration:
@@ -14,24 +14,16 @@ Optional configuration:
 * Setting the time zone of plotting manager via environment (e.g. `-e TZ=Europe/Berlin`)
 
 On first start:
-* Open `/config/config.yaml` for editing
-* Set `chia_location` to `/chia-blockchain/venv/bin/chia`
-* Set `log:folder_path` to `/config/logs`
-* In the `jobs` section set following values for each job:
-  * Set `farmer_public_key` according to existing full node (`chia keys show`)
-  * Set `pool_public_key` according to existing full node (`chia keys show`)
-  * Set `temporary_directory` to `/temp`
-  * Set `destination_directory` to `/plots`
-* Adjust the rest according to your needs
+* Open `/config/plotter.cfg` for editing
+* Adjust the parameters according to your needs
 
 ## Operation
 Open docker shell:
 * docker exec -it `containerid` sh
 
 Control plotting:
-* python manager.py start (Start plotting jobs according to `config.yaml`)
-* python manager.py restart (Reload after `config.yaml` change - timers will be reset)
-* python manager.py stop (Stop new plotting jobs - running jobs will be finished)
+* bash start.sh (Start plotting according to `plotter.cfg`)
+* bash stop.sh (Stop plotting gracefully - running job will be finished)
 
 Observe plotting:
-* python manager.py view
+* docker logs --follow `containerid`
