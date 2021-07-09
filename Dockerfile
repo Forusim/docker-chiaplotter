@@ -1,6 +1,6 @@
 # Compiler image
 # -------------------------------------------------------------------------------------------------
-FROM alpine AS compiler
+FROM alpine:3.13 AS compiler
 
 RUN apk --no-cache add \
     git gcc g++ build-base cmake libsodium-dev libsodium-static 
@@ -11,7 +11,7 @@ RUN git clone https://github.com/madMAx43v3r/chia-plotter.git --branch master --
 
 # Runtime image
 # -------------------------------------------------------------------------------------------------
-FROM alpine AS runtime
+FROM alpine:3.13 AS runtime
 
 RUN apk --no-cache add \
     tzdata nano bash libstdc++ libsodium
