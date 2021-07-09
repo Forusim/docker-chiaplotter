@@ -10,7 +10,7 @@ t=/temp/
 t2=/ram/
 # Final directory (default = <tmpdir>)
 d=/farm/
-# Pool Public Key (48 bytes)
-p=
+# Pool Contract Address (62 chars)
+c=
 # Farmer Public Key (48 bytes)
 f=
